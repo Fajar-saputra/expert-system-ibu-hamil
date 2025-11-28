@@ -1,13 +1,13 @@
-// frontend/src/features/store.js
+// frontend/src/features/store.js (Modifikasi)
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './auth/authSlice'; // Belum dibuat, akan kita buat di langkah berikutnya
+import authReducer from './auth/authSlice';
+import dataReducer from './data/dataSlice'; // <-- IMPORT BARU
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    // [nanti_tambah_reducer_lain_di_sini]
+    data: dataReducer, // <-- TAMBAHKAN DI SINI
   },
-  // DevTools otomatis aktif di lingkungan development
 });
 
 export default store;
