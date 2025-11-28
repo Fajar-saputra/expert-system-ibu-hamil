@@ -2,6 +2,7 @@
 
 import asyncHandler from 'express-async-handler';
 import Gejala from '../models/Gejala.js'; // Import Model Gejala
+import router from './userRoutes.js';
 
 // @desc    Get all gejala
 // @route   GET /api/gejala
@@ -81,4 +82,4 @@ const deleteGejala = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id, message: 'Gejala berhasil dihapus.' });
 });
 
-export { getGejala, setGejala, updateGejala, deleteGejala };
+export default router;

@@ -10,6 +10,7 @@ import HomeScreen from './pages/public/HomeScreen';
 import LoginScreen from './pages/public/LoginScreen';
 import RegisterScreen from './pages/public/RegisterScreen'; 
 import DashboardScreen from './pages/admin/DashboardScreen'; // Buat file ini (kosong saja dulu)
+import GejalaListScreen from './pages/admin/GejalaListScreen';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/admin/dashboard" element={<DashboardScreen />} />
             
             {/* TAMBAHKAN RUTE CRUD ADMIN DI SINI */}
+            <Route path="/admin/gejala" element={<GejalaListScreen />} />
             <Route path="/admin/penyakit" element={<h1>Kelola Penyakit</h1>} />
             <Route path="/admin/gejala" element={<h1>Kelola Gejala</h1>} />
             <Route path="/admin/rules" element={<h1>Kelola Rules</h1>} />
