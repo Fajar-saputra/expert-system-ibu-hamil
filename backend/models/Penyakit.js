@@ -1,16 +1,13 @@
 import mongoose from 'mongoose';
 
-// Definisi Skema Penyakit
 const penyakitSchema = mongoose.Schema(
     {
-        // ID otomatis dibuat oleh MongoDB, kita tidak perlu mendefinisikannya
-        
         kode: {
             type: String,
             required: [true, 'Kode penyakit harus diisi'],
             unique: true,
             trim: true,
-            uppercase: true // Contoh: P01, P02
+            uppercase: true,
         },
         nama: {
             type: String,
@@ -27,15 +24,14 @@ const penyakitSchema = mongoose.Schema(
         },
         pencegahan: {
             type: String,
-            required: false, // Pencegahan mungkin opsional
+            required: false, 
         },
+        // ** (HILANGKAN relasi gejalaTerkait di sini, karena sudah ada di Rule.js)**
     },
     {
-        timestamps: true, // Otomatis menambahkan createdAt dan updatedAt
+        timestamps: true,
     }
 );
 
-// Membuat Model dari Skema
 const Penyakit = mongoose.model('Penyakit', penyakitSchema);
-
 export default Penyakit;
