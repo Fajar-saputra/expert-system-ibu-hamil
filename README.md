@@ -1,0 +1,1 @@
+A simple expert system designed to help pregnant women get initial recommendations based on common pregnancy-related symptoms. The app uses rule-based reasoning to analyze the user’s selected symptoms and provide relevant suggestions—ranging from possible causes to basic first-step actions. Great as a starter project for learning expert systems and inference logic.
