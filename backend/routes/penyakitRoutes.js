@@ -1,12 +1,19 @@
-import express from 'express';
-import { getPenyakit, getPenyakitById, createPenyakit, updatePenyakit, deletePenyakit } from '../controllers/penyakitController.js';
-import { protect, admin } from '../middleware/authMiddleware.js'; // <-- Import protect & admin
-
+// backend/routes/penyakitRoutes.js
+import express from "express";
 const router = express.Router();
+import { getPenyakit, getPenyakitById, createPenyakit, updatePenyakit, deletePenyakit,deleteAllPenyakit } from "../controllers/penyakitController.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 
-// GET Publik, POST hanya Admin
-router.route('/').get(getPenyakit).post(protect, admin, createPenyakit); 
-// GET Publik, PUT/DELETE hanya Admin
-router.route('/:id').get(getPenyakitById).put(protect, admin, updatePenyakit).delete(protect, admin, deletePenyakit); 
+router  
+    .route("/")
+    .get(getPenyakit) // Public access
+    .post(protect, admin, createPenyakit) // Admin Only
+    .delete(protect, admin, deleteAllPenyakit);
+
+router
+    .route("/:id")
+    .get(getPenyakitById) // Public access
+    .put(protect, admin, updatePenyakit) // Admin Only
+    .delete(protect, admin, deletePenyakit); // Admin Only
 
 export default router;

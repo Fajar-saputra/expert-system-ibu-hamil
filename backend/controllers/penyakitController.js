@@ -1,71 +1,82 @@
-import Penyakit from '../models/Penyakit.js';
+// backend/controllers/penyakitController.js
+import Penyakit from "../models/Penyakit.js";
+import asyncHandler from "express-async-handler";
 
-// @desc    Mendapatkan semua Penyakit
+// @desc    Mendapatkan semua Penyakit (Public access)
 // @route   GET /api/penyakit
-export const getPenyakit = async (req, res) => {
-    try {
-        const penyakit = await Penyakit.find({});
-        res.status(200).json(penyakit);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+export const getPenyakit = asyncHandler(async (req, res) => {
+    const penyakit = await Penyakit.find({});
+    res.json(penyakit);
+});
 
-// @desc    Mendapatkan Penyakit berdasarkan ID
+// @desc    Mendapatkan Penyakit berdasarkan ID (Public access)
 // @route   GET /api/penyakit/:id
-export const getPenyakitById = async (req, res) => {
-    try {
-        const penyakit = await Penyakit.findById(req.params.id);
-        if (penyakit) {
-            res.json(penyakit);
-        } else {
-            res.status(404).json({ message: 'Penyakit tidak ditemukan' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+export const getPenyakitById = asyncHandler(async (req, res) => {
+    const penyakit = await Penyakit.findById(req.params.id);
 
-// @desc    Menambah Penyakit baru
+    if (penyakit) {
+        res.json(penyakit);
+    } else {
+        res.status(404);
+        throw new Error("Penyakit tidak ditemukan"); 
+    }
+});
+
+// @desc    Menambah Penyakit baru (Admin only)
 // @route   POST /api/penyakit
-export const createPenyakit = async (req, res) => {
-    try {
-        const penyakit = await Penyakit.create(req.body);
-        res.status(201).json(penyakit);
-    } catch (error) {
-        res.status(400).json({ message: 'Gagal membuat penyakit', details: error.message });
-    }
-};
+export const createPenyakit = asyncHandler(async (req, res) => {
+    // 1. Destructuring HANYA field yang dikirim dari Postman
+    const { kode, nama, deskripsi, solusi, pencegahan } = req.body;
+    
+    // 2. Buat objek Penyakit secara eksplisit
+    const penyakit = await Penyakit.create({
+        kode: kode,
+        nama: nama,
+        deskripsi: deskripsi,
+        solusi: solusi,
+        pencegahan: pencegahan || '', // Gunakan nilai default jika tidak ada pencegahan
+    }); 
 
-// @desc    Memperbarui Penyakit
+    res.status(201).json(penyakit);
+});
+
+// @desc    Memperbarui Penyakit (Admin only)
 // @route   PUT /api/penyakit/:id
-export const updatePenyakit = async (req, res) => {
-    try {
-        const penyakit = await Penyakit.findByIdAndUpdate(req.params.id, req.body, {
-            new: true, // Mengembalikan dokumen yang sudah diperbarui
-            runValidators: true,
-        });
-        if (penyakit) {
-            res.json(penyakit);
-        } else {
-            res.status(404).json({ message: 'Penyakit tidak ditemukan' });
-        }
-    } catch (error) {
-        res.status(400).json({ message: 'Gagal memperbarui penyakit', details: error.message });
-    }
-};
+export const updatePenyakit = asyncHandler(async (req, res) => {
+    const penyakit = await Penyakit.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+    });
 
-// @desc    Menghapus Penyakit
-// @route   DELETE /api/penyakit/:id
-export const deletePenyakit = async (req, res) => {
-    try {
-        const penyakit = await Penyakit.findByIdAndDelete(req.params.id);
-        if (penyakit) {
-            res.json({ message: 'Penyakit berhasil dihapus' });
-        } else {
-            res.status(404).json({ message: 'Penyakit tidak ditemukan' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+    if (penyakit) {
+        res.json(penyakit);
+    } else {
+        res.status(404);
+        throw new Error("Penyakit tidak ditemukan");
     }
-};
+});
+
+// @desc    Menghapus Penyakit (Admin only)
+// @route   DELETE /api/penyakit/:id
+export const deletePenyakit = asyncHandler(async (req, res) => {
+    const penyakit = await Penyakit.findByIdAndDelete(req.params.id);
+
+    if (penyakit) {
+        res.json({ message: "Penyakit berhasil dihapus" });
+    } else {
+        res.status(404);
+        throw new Error("Penyakit tidak ditemukan");
+    }
+});
+
+// @desc    Menghapus SEMUA Penyakit (Admin only)
+// @route   DELETE /api/penyakit/
+export const deleteAllPenyakit = asyncHandler(async (req, res) => {
+    // Mongoose Model.deleteMany({}) akan menghapus semua dokumen dalam koleksi
+    const result = await Penyakit.deleteMany({}); 
+
+    res.json({
+        message: 'Semua data Penyakit berhasil dihapus.',
+        count: result.deletedCount, // Menampilkan jumlah dokumen yang dihapus
+    });
+})

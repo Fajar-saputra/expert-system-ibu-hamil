@@ -1,10 +1,11 @@
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
+import asyncHandler from 'express-async-handler';
 // Pastikan Anda sudah menginstal npm install bcryptjs jsonwebtoken
 
 // @desc    Auth user & get token (Login)
 // @route   POST /api/users/login
-export const authUser = async (req, res) => {
+export const authUser =asyncHandler( async (req, res) => {
     const { email, password } = req.body;
     
     const user = await User.findOne({ email });
@@ -20,11 +21,11 @@ export const authUser = async (req, res) => {
     } else {
         res.status(401).json({ message: 'Email atau password salah' });
     }
-};
+});
 
 // @desc    Register user baru (default role: ibu_hamil)
 // @route   POST /api/users
-export const registerUser = async (req, res) => {
+export const registerUser =asyncHandler( async (req, res) => {
     const { nama, email, password } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -55,13 +56,13 @@ export const registerUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Server error', details: error.message });
     }
-};
+});
 
 
 // @desc    Get user profile (Harus diakses setelah login/token valid)
 // @route   GET /api/users/profile
 // @access  Private
-export const getUserProfile = async (req, res) => {
+export const getUserProfile =asyncHandler( async (req, res) => {
     // Req.user adalah objek user yang ditambahkan oleh middleware otentikasi
     const user = await User.findById(req.user._id);
 
@@ -75,7 +76,7 @@ export const getUserProfile = async (req, res) => {
     } else {
         res.status(404).json({ message: 'User tidak ditemukan' });
     }
-};
+});
 
 
 // ... (setelah fungsi getUserProfile)
@@ -83,7 +84,7 @@ export const getUserProfile = async (req, res) => {
 // @desc    Buat user Admin PERTAMA (Hanya digunakan untuk setup awal)
 // @route   POST /api/users/init-admin
 // @access  Public (HANYA UNTUK SETUP)
-export const initAdmin = async (req, res) => {
+export const initAdmin =asyncHandler( async (req, res) => {
     const { nama, email, password } = req.body;
     
     // Pastikan tidak ada Admin yang sudah terdaftar
@@ -104,4 +105,4 @@ export const initAdmin = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Gagal membuat admin', details: error.message });
     }
-};
+});

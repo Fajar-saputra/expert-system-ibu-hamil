@@ -18,15 +18,14 @@ const penyakitSchema = mongoose.Schema(
             type: String,
             required: [true, 'Deskripsi penyakit harus diisi'],
         },
-        solusi: {
+        solusi: { // Nama field adalah 'solusi'
             type: String,
-            required: [true, 'Solusi atau penanganan harus diisi'],
+            required: [true, 'Solusi atau penanganan harus diisi'], 
         },
         pencegahan: {
             type: String,
             required: false, 
         },
-        // ** (HILANGKAN relasi gejalaTerkait di sini, karena sudah ada di Rule.js)**
     },
     {
         timestamps: true,

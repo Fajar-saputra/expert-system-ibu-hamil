@@ -1,8 +1,10 @@
+// backend/middleware/authMiddleware.js
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import asyncHandler from 'express-async-handler'; // Pastikan Anda sudah menginstal ini
 
 // Fungsi untuk melindungi rute (Memastikan user sudah login)
-export const protect = async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
     let token;
 
     // Cek apakah ada token di header Authorization (format: 'Bearer <token>')
@@ -20,14 +22,17 @@ export const protect = async (req, res, next) => {
             next(); // Lanjut ke controller
         } catch (error) {
             console.error(error);
+            // Gunakan res.status di dalam catch
             res.status(401).json({ message: 'Token tidak valid, otorisasi gagal' });
         }
     }
 
     if (!token) {
+        // Jika tidak ada token, kirim response
         res.status(401).json({ message: 'Tidak ada token, otorisasi gagal' });
     }
-};
+});
+
 
 // Fungsi untuk membatasi akses hanya untuk Admin
 export const admin = (req, res, next) => {

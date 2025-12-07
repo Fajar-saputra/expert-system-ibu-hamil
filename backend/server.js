@@ -6,12 +6,14 @@ import penyakitRoutes from "./routes/penyakitRoutes.js"; // JANGAN LUPA IMPORT P
 import gejalaRoutes from "./routes/gejalaRoutes.js";
 import ruleRoutes from "./routes/ruleRoutes.js";
 import diagnoseRoutes from "./routes/diagnoseRoutes.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 dotenv.config({ path: "./.env" }); 
 
+const app = express();
+
 connectDB();
 
-const app = express();
 
 app.use(express.json());
 
@@ -25,6 +27,9 @@ app.use("/api/penyakit", penyakitRoutes); // Pastikan ini diimpor
 app.use("/api/gejala", gejalaRoutes);
 app.use("/api/rule", ruleRoutes);
 app.use("/api/diagnose", diagnoseRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

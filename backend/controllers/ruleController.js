@@ -1,4 +1,5 @@
 import Rule from '../models/Rule.js';
+import asyncHandler from 'express-async-handler'
 
 // @desc    Mendapatkan semua Rule (dengan detail Penyakit dan Gejala)
 // @route   GET /api/rule
@@ -83,3 +84,14 @@ export const deleteRule = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// @desc    Menghapus SEMUA Rule (HATI-HATI: Admin only)
+// @route   DELETE /api/rule/
+export const deleteAllRule = asyncHandler(async (req, res) => {
+    const result = await Rule.deleteMany({});
+
+    res.json({
+        message: 'Semua data Rule berhasil dihapus.',
+        count: result.deletedCount,
+    });
+});

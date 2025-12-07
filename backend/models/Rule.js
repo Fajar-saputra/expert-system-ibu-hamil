@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'; // Gunakan import
-import Penyakit from './Penyakit.js';
-import Gejala from './Gejala.js';
+import mongoose from 'mongoose'; 
 
 // Definisi Skema Rule
 const ruleSchema = mongoose.Schema(
@@ -25,8 +23,10 @@ const ruleSchema = mongoose.Schema(
         // Opsional, tapi sangat berguna untuk sistem pakar yang lebih akurat
         bobot: {
             type: Number,
-            required: false, // Kita buat opsional dulu
-            default: 1.0,    // Default 1.0 jika tidak menggunakan CF
+            required: [true, 'Bobot harus diisi (nilai antara 0.0 sampai 1.0).'], // Dibuat wajib untuk konsistensi
+            min: [0.0, 'Bobot tidak boleh kurang dari 0.0'],
+            max: [1.0, 'Bobot tidak boleh lebih dari 1.0'],
+            default: 1.0, 
         },
     },
     {

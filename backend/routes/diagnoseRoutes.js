@@ -1,9 +1,8 @@
+// backend/routes/diagnoseRoutes.js
 import express from 'express';
-import { runDiagnose } from '../controllers/diagnoseController.js';
-
 const router = express.Router();
+import { diagnose } from '../controllers/diagnoseController.js';
 
-// Rute untuk menjalankan diagnosa
-router.post('/', runDiagnose); 
+router.route('/').post(diagnose);
 
 export default router;

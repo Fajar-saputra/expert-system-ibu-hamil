@@ -72,3 +72,14 @@ export const deleteGejala =asyncHandler( async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// @desc    Menghapus SEMUA Gejala (HATI-HATI: Admin only)
+// @route   DELETE /api/gejala/
+export const deleteAllGejala = asyncHandler(async (req, res) => {
+    const result = await Gejala.deleteMany({});
+
+    res.json({
+        message: 'Semua data Gejala berhasil dihapus.',
+        count: result.deletedCount,
+    });
+});
