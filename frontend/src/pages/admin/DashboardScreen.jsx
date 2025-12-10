@@ -1,90 +1,66 @@
 // frontend/src/pages/admin/DashboardScreen.jsx
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Outlet, NavLink } from 'react-router-dom';
+// NavLink dari react-router-dom digunakan untuk styling link aktif
 
 const DashboardScreen = () => {
-  // Kita bisa menggunakan data user dari Redux untuk personalisasi
-  const { user } = useSelector((state) => state.auth);
+    return (
+        <div className="flex min-h-screen bg-gray-50">
+            {/* Sidebar (Menu Admin) */}
+            <aside className="w-64 bg-indigo-800 text-white p-6 shadow-xl">
+                <h2 className="text-2xl font-bold mb-8 border-b border-indigo-700 pb-2">Admin Panel</h2>
+                <nav className="space-y-2">
+                    {/* Link Dashboard Utama */}
+                    <NavLink
+                        to="/admin/dashboard"
+                        end // 'end' memastikan ini hanya aktif saat di rute persis
+                        className={({ isActive }) => 
+                            isActive ? "block p-3 rounded-lg bg-indigo-700 font-semibold" : "block p-3 rounded-lg hover:bg-indigo-700"
+                        }
+                    >
+                        Dashboard
+                    </NavLink>
+                    
+                    {/* Link CRUD Gejala */}
+                    <NavLink
+                        to="/admin/gejala"
+                        className={({ isActive }) => 
+                            isActive ? "block p-3 rounded-lg bg-indigo-700 font-semibold" : "block p-3 rounded-lg hover:bg-indigo-700"
+                        }
+                    >
+                        Kelola Gejala
+                    </NavLink>
+                    
+                    {/* Link CRUD Penyakit */}
+                    <NavLink
+                        to="/admin/penyakit"
+                        className={({ isActive }) => 
+                            isActive ? "block p-3 rounded-lg bg-indigo-700 font-semibold" : "block p-3 rounded-lg hover:bg-indigo-700"
+                        }
+                    >
+                        Kelola Penyakit
+                    </NavLink>
+                    
+                    {/* Link CRUD Rule/Aturan */}
+                    <NavLink
+                        to="/admin/rules"
+                        className={({ isActive }) => 
+                            isActive ? "block p-3 rounded-lg bg-indigo-700 font-semibold" : "block p-3 rounded-lg hover:bg-indigo-700"
+                        }
+                    >
+                        Kelola Rule
+                    </NavLink>
+                </nav>
+            </aside>
 
-  return (
-    <div className='container' style={styles.container}>
-      <h1 style={styles.heading}>
-        Dashboard Admin
-      </h1>
-      <h3 style={styles.subHeading}>
-        Selamat datang di panel kontrol, {user && user.nama}.
-      </h3>
-
-      <div style={styles.cardContainer}>
-        {/* Card 1: Pengelolaan Penyakit */}
-        <Link to="/admin/penyakit" style={styles.cardLink}>
-          <div style={styles.card}>
-            <h2>Kelola Penyakit</h2>
-            <p>Tambah, Edit, Hapus data penyakit dan solusinya.</p>
-          </div>
-        </Link>
-        
-        {/* Card 2: Pengelolaan Gejala */}
-        <Link to="/admin/gejala" style={styles.cardLink}>
-          <div style={styles.card}>
-            <h2>Kelola Gejala</h2>
-            <p>Tambah dan edit daftar gejala yang digunakan dalam diagnosis.</p>
-          </div>
-        </Link>
-
-        {/* Card 3: Pengelolaan Rule (Basis Pengetahuan) */}
-        <Link to="/admin/rules" style={styles.cardLink}>
-          <div style={styles.card}>
-            <h2>Kelola Rules (IF-THEN)</h2>
-            <p>Atur logika dan aturan untuk sistem pakar (Basis Pengetahuan).</p>
-          </div>
-        </Link>
-      </div>
-      
-    </div>
-  );
+            {/* Konten Utama Admin */}
+            <main className="flex-1 p-8">
+                {/* Outlet akan merender halaman CRUD yang spesifik (misal: GejalaListScreen) */}
+                <Outlet /> 
+            </main>
+        </div>
+    );
 };
-
-// Style sederhana
-// const styles = {
-//   container: {
-//     padding: '40px 20px',
-//     minHeight: '80vh',
-//   },
-//   heading: {
-//     textAlign: 'center',
-//     marginBottom: '10px',
-//     color: '#333',
-//   },
-//   subHeading: {
-//     textAlign: 'center',
-//     marginBottom: '30px',
-//     color: '#666',
-//     fontSize: '1.2em',
-//   },
-//   cardContainer: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//     gap: '20px',
-//     justifyContent: 'center',
-//   },
-//   cardLink: {
-//     textDecoration: 'none',
-//     color: 'inherit',
-//     flexBasis: 'calc(33.333% - 20px)', // Tiga kolom per baris
-//     maxWidth: '300px',
-//   },
-//   card: {
-//     padding: '20px',
-//     borderRadius: '8px',
-//     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-//     backgroundColor: 'white',
-//     transition: 'transform 0.2s, box-shadow 0.2s',
-//     height: '100%',
-//     textAlign: 'center',
-//   },
-// };
 
 export default DashboardScreen;
