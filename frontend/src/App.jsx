@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import AdminRoute from "./components/AdminRoute"; // Untuk melindungi rute admin
 import HomeScreen from "./pages/public/HomeScreen";
-import LoginScreen from "./pages/public/LoginScreen";
+import LoginScreen from "./pages/public/LoginPage";
 import RegisterScreen from "./pages/public/RegisterPage";
 import DashboardScreen from "./pages/admin/DashboardScreen"; // Buat file ini (kosong saja dulu)
 import GejalaListScreen from "./pages/admin/GejalaListScreen";
@@ -16,10 +16,7 @@ import RegisterPage from "./pages/public/RegisterPage";
 const App = () => {
     return (
         <Router>
-            <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <h1 className="text-4xl font-bold text-blue-600 p-4 border-b-4 border-blue-600">Hello, Tailwind di React!</h1>
-            </div>
-            {/* <RegisterPage/> */}
+            <RegisterPage/>
             {/* <Header /> Header/Navbar akan selalu terlihat */}
             {/* <main className="py-3"> */}
             {/* <ToastContainer> */}

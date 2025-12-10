@@ -6,7 +6,7 @@ import { FaUserPlus } from "react-icons/fa";
 import { register, reset } from "../../features/auth/authSlice.js";
 import { toast, ToastContainer } from "react-toastify";
 // Import gambar latar belakang jika ada, atau gunakan bg-cover Tailwind
-// import bgImage from '../assets/bg.jpg';
+import bgImage from '../../assets/images/bg.png';
 
 function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -67,9 +67,9 @@ function RegisterPage() {
 
     return (
         <div
-            className="flex items-center justify-center min-h-screen bg-cover bg-center"
+            className="flex items-center justify-center min-h-screen bg-cover bg-center bg-[bgImage]"
             // Atur background sesuai gambar Anda (misal: dengan style)
-            style={{ backgroundImage: `url('/bg.jpg')` }}
+            style={{ backgroundImage: `url('../src/assets/images/bg.png')` }}
         >
             <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-2xl">
                 <header className="text-center mb-6">

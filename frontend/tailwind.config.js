@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", // Path untuk memindai file-file di folder src
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {},

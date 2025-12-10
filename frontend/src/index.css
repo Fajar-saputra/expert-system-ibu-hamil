@@ -1,5 +1,5 @@
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+.bgRegister {
+    background-image: url('../src/assets/images/bg.png');
+}
