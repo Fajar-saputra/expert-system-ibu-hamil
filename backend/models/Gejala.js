@@ -1,6 +1,5 @@
-import mongoose from 'mongoose'; // Gunakan import karena Anda menggunakan type: module
+import mongoose from 'mongoose';
 
-// Definisi Skema Gejala
 const gejalaSchema = mongoose.Schema(
     {
         kode: {
@@ -28,4 +27,4 @@ const gejalaSchema = mongoose.Schema(
 // Membuat Model dari Skema
 const Gejala = mongoose.model('Gejala', gejalaSchema);
 
-export default Gejala; // Gunakan export default
+export default Gejala;

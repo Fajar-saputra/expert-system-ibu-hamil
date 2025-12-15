@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'; 
 
-// Definisi Skema Rule
 const ruleSchema = mongoose.Schema(
     {
         // Penyakit yang menjadi KESIMPULAN (THEN)
@@ -20,10 +19,9 @@ const ruleSchema = mongoose.Schema(
         }],
 
         // Bobot atau Nilai CF (Certainty Factor)
-        // Opsional, tapi sangat berguna untuk sistem pakar yang lebih akurat
         bobot: {
             type: Number,
-            required: [true, 'Bobot harus diisi (nilai antara 0.0 sampai 1.0).'], // Dibuat wajib untuk konsistensi
+            required: [true, 'Bobot harus diisi (nilai antara 0.0 sampai 1.0).'],
             min: [0.0, 'Bobot tidak boleh kurang dari 0.0'],
             max: [1.0, 'Bobot tidak boleh lebih dari 1.0'],
             default: 1.0, 

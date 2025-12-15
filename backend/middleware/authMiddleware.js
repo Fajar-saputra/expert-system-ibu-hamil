@@ -1,7 +1,7 @@
 // backend/middleware/authMiddleware.js
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import asyncHandler from 'express-async-handler'; // Pastikan Anda sudah menginstal ini
+import asyncHandler from 'express-async-handler'; 
 
 // Fungsi untuk melindungi rute (Memastikan user sudah login)
 export const protect = asyncHandler(async (req, res, next) => {

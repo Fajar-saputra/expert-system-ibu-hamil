@@ -1,27 +1,23 @@
+// backend/routes/gejalaRoutes.js (VERSI PERBAIKAN)
+
 import express from "express";
-// Import semua fungsi dari controller yang sudah diperbaiki
 import { getGejala, getGejalaById, createGejala, updateGejala, deleteGejala, deleteAllGejala } from "../controllers/gejalaController.js";
-import { protect, admin } from "../middleware/authMiddleware.js"; // Asumsi Anda punya middleware ini
+import { protect, admin } from "../middleware/authMiddleware.js";
 
-const router = express.Router(); // DEFINISIKAN ROUTER
+const router = express.Router(); 
 
-// Public GET (Jika Anda ingin user non-admin juga bisa lihat)
+// Rute untuk endpoint /api/gejala/
 router
     .route("/")
-    .get(getGejala) // Public access
-    .post(protect, admin, createGejala) // Admin Only
-    .delete(protect, admin, deleteAllGejala);
+    .get(getGejala) // READ ALL (Public/Shared access)
+    .post(protect, admin, createGejala) // CREATE (Admin Only)
+    .delete(protect, admin, deleteAllGejala); // DELETE ALL (Admin Only - Hati-hati)
 
-// Admin Routes (Harus dilindungi)
-// POST (Create)
-router.route("/").post(protect, admin, createGejala);
-
-// GET by ID, PUT (Update), DELETE (Delete)
-// Note: PUT/DELETE biasanya hanya untuk Admin
+// Rute untuk endpoint /api/gejala/:id
 router
     .route("/:id")
-    .get(getGejalaById) // Jika user non-admin boleh lihat detail
-    .put(protect, admin, updateGejala)
-    .delete(protect, admin, deleteGejala);
+    .get(getGejalaById) // READ ONE (Public/Shared access)
+    .put(protect, admin, updateGejala) // UPDATE (Admin Only)
+    .delete(protect, admin, deleteGejala); // DELETE ONE (Admin Only)
 
-export default router; // EXPORT DEFAULT yang benar
+export default router;
