@@ -5,12 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './pages/admin/HomePage';
 import LoginPage from './pages/public/LoginPage';
 import RegisterPage from './pages/public/RegisterPage';
+import Header from './components/layout/Header';
 
 function App() {
   return (
     <>
       <Router>
-        {/* Tambahkan komponen Header di sini nanti */}
+        <Header />
         <div className="container mx-auto">
           <Routes>
             {/* Rute Publik */}
