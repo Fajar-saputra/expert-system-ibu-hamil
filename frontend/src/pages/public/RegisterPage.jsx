@@ -25,25 +25,35 @@ function RegisterPage() {
     const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
     // --- Efek Samping (Side Effects) ---
-    useEffect(() => {
-        if (isError) {
-            toast.error(message);
-        }
+useEffect(() => {
+    if (isError) {
+        toast.error(message);
+    }
 
-        if (isSuccess || user) {
-            // Cek role untuk redirection
-            if (user && user.role === "admin") {
-                navigate("/admin/dashboard");
-            } else {
-                navigate("/");
-            }
+    // Jika register berhasil, redirect
+    if (isSuccess && user) { 
+        if (user.role === 'admin') {
+            navigate('/admin');
+        } else {
+            navigate('/');
         }
+    } 
+    
+    // Logika tambahan jika user sudah login dan mencoba ke /register
+    if (user && !isSuccess) {
+         if (user.role === 'admin') {
+            navigate('/admin', { replace: true });
+        } else {
+            navigate('/', { replace: true });
+        }
+    }
 
-        // Cleanup function
-        return () => {
-            dispatch(reset());
-        };
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+    // Cleanup function
+    return () => {
+         dispatch(reset()); 
+    };
+
+}, [user, isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({

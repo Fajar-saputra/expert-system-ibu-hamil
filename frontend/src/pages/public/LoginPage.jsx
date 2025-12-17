@@ -22,25 +22,37 @@ function LoginPage() {
     // Mengambil state dari Redux Store (Thunk Style)
     const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        if (isError) {
-            toast.error(message);
-        }
+useEffect(() => {
+    if (isError) {
+        toast.error(message);
+    }
 
-        if (isSuccess || user) {
-            // Cek role untuk Redirection
-            if (user && user.role === "admin") {
-                navigate("/admin/dashboard");
-            } else {
-                navigate("/");
-            }
+    // 🛑 PERUBAHAN LOGIC UTAMA 🛑
+    // Jika login berhasil, redirect
+    if (isSuccess && user) {
+        // Cek role untuk Redirection
+        if (user.role === 'admin') {
+            navigate('/admin'); // Redirect ke Dashboard Admin
+        } else {
+            navigate('/'); // Redirect ke Home Page User
         }
+    } 
+    
+    // 🛑 LOGIC TAMBAHAN: Jika user sudah login dan mencoba ke /login, paksa redirect ke home 🛑
+    if (user && !isSuccess) {
+         if (user.role === 'admin') {
+            navigate('/admin', { replace: true });
+        } else {
+            navigate('/', { replace: true });
+        }
+    }
 
-        // Cleanup function untuk mereset status Redux setelah selesai
-        return () => {
-            dispatch(reset());
-        };
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+    // Cleanup function untuk mereset status Redux setelah selesai
+    return () => {
+         dispatch(reset()); 
+    };
+    
+}, [user, isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({

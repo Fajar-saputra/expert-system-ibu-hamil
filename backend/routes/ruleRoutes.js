@@ -4,17 +4,15 @@ import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/').get(getRules).post(createRule); 
-router.route('/:id').get(getRuleById).put(updateRule).delete(deleteRule); 
-
 router.route('/')
-    .get(protect, admin, getRules) // Admin harus login untuk melihat Rules
-    .post(protect, admin, createRule) // Admin harus login untuk membuat Rule
+    .get(getRules) // public read
+    .post(protect, admin, createRule)
     .delete(protect, admin, deleteAllRule);
 
 router.route('/:id')
-    .get(protect, admin, getRuleById) // Admin harus login untuk melihat detail
+    .get(getRuleById)
     .put(protect, admin, updateRule)
     .delete(protect, admin, deleteRule);
+
 
 export default router;
