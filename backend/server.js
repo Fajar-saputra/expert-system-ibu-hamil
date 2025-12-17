@@ -8,28 +8,27 @@ import ruleRoutes from "./routes/ruleRoutes.js";
 import diagnoseRoutes from "./routes/diagnoseRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
-import  cors  from 'cors';
+import cors from "cors";
 
-dotenv.config({ path: "./.env" }); 
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
 connectDB();
 
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+    })
+);
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-}));
-
-app.options('*', cors());
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-
 
 app.get("/", (req, res) => {
     res.send("API is running for Expert System Ibu Hamil");
@@ -37,7 +36,7 @@ app.get("/", (req, res) => {
 
 // DEFINISI ROUTE API
 app.use("/api/users", userRoutes);
-app.use("/api/penyakit", penyakitRoutes); // Pastikan ini diimpor
+app.use("/api/penyakit", penyakitRoutes); 
 app.use("/api/gejala", gejalaRoutes);
 app.use("/api/rule", ruleRoutes);
 app.use("/api/diagnose", diagnoseRoutes);

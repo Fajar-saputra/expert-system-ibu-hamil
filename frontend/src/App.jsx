@@ -9,6 +9,8 @@ import Header from "./components/layout/Header";
 import AdminRoute from "./components/layout/AdminRoute";
 import Dashboard from "./pages/admin/Dashboard";
 import GejalaManagement from "./pages/admin/GejalaManagement";
+import PenyakitManagement from "./pages/admin/PenyakitManagement";
+import RuleManagement from "./pages/admin/RuleManagement";
 
 function App() {
     return (
@@ -26,8 +28,8 @@ function App() {
                         <Route path="/admin" element={<AdminRoute />}>
                             <Route index element={<Dashboard />} />
                             <Route path="gejala" element={<GejalaManagement />} />
-                            <Route path="penyakit" element={<p>Halaman Manajemen Penyakit</p>} />
-                            <Route path="rule" element={<p>Halaman Manajemen Aturan</p>} />
+                            <Route path="penyakit" element={<PenyakitManagement />} />
+                            <Route path="rule" element={<RuleManagement />} />
                         </Route>
                     </Routes>
                 </div>

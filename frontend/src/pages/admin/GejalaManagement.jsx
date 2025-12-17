@@ -18,24 +18,26 @@ function GejalaManagement() {
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
-    // Dapatkan semua gejala saat komponen dimuat
+    // Gunakan pola ini untuk keduanya
+
+    
     useEffect(() => {
         dispatch(getGejalas());
+    }, [dispatch]);
 
+    useEffect(() => {
         if (isError) {
             toast.error(message);
+            // JANGAN panggil dispatch(reset()) di sini
         }
+    }, [isError, message]);
 
-        // Cleanup function
+    // Panggil reset hanya saat benar-benar meninggalkan halaman
+    useEffect(() => {
         return () => {
             dispatch(reset());
         };
-    }, [dispatch, isError, message]);
-
-    // Handler Perubahan Form
-    const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    }, [dispatch]);
 
     // Handler Submit Form (Create/Update)
     const onSubmit = (e) => {
@@ -62,6 +64,13 @@ function GejalaManagement() {
         }
     };
 
+    const onChange = (e) => {
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
     // Fungsi untuk Reset Form
     const resetForm = () => {
         setIsEditing(false);
@@ -71,12 +80,24 @@ function GejalaManagement() {
     };
 
     // Handler Edit
-    const handleEdit = (gejala) => {
-        setFormData({ kode: gejala.kode, nama: gejala.nama });
-        setIsEditing(true);
-        setEditId(gejala._id);
-        setShowForm(true);
-    };
+    // const handleEdit = (gejala) => {
+    //     setFormData({ kode: gejala.kode, nama: gejala.nama });
+    //     setIsEditing(true);
+    //     setEditId(gejala._id);
+    //     setShowForm(true);
+    // };
+
+const handleEdit = (gejala) => {
+    setFormData({
+        kode: gejala.kode,
+        nama: gejala.nama,
+        pertanyaan_diagnosa: gejala.pertanyaan_diagnosa,
+    });
+    setIsEditing(true);
+    setEditId(gejala._id);
+    setShowForm(true);
+};
+
 
     // Handler Delete
     const handleDelete = (id) => {

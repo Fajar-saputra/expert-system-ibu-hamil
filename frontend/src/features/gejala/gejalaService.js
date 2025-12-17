@@ -71,6 +71,25 @@ const updateGejala = async (gejalaData) => {
     return response.data;
 };
 
+// const updateGejala = async (gejalaData) => {
+//     const { id, kode, nama, pertanyaan_diagnosa } = gejalaData;
+
+//     const token = getToken();
+//     const config = {
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//     };
+
+//     const response = await axios.put(API_URL + id, {
+//         kode,
+//         nama,
+//         pertanyaan_diagnosa,
+//     }, config);
+
+//     return response.data;
+// };
+
 
 const gejalaService = {
     createGejala,
