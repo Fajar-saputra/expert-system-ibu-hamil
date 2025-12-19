@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGejalas } from "../../features/gejala/gejalaSlice";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { FaRedo } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 function DiagnosePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { gejalas, isLoading } = useSelector(state => state.gejala);
+    const { gejalas, isLoading } = useSelector((state) => state.gejala);
 
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState([]);
@@ -19,10 +21,7 @@ function DiagnosePage() {
     }, [dispatch]);
 
     const handleAnswer = (value) => {
-        setAnswers((prev) => [
-            ...prev,
-            { gejalaId: gejalas[step]._id, value }
-        ]);
+        setAnswers((prev) => [...prev, { gejalaId: gejalas[step]._id, value }]);
         setStep(step + 1);
     };
 
@@ -30,10 +29,10 @@ function DiagnosePage() {
     const submitDiagnose = async () => {
         setErrorMsg(""); // Reset error setiap kali klik
         setIsSubmitting(true);
-        
+
         try {
             const res = await axios.post("http://localhost:5000/api/diagnose", {
-                answers: answers 
+                answers: answers,
             });
 
             if (res.data.topResult) {
@@ -51,11 +50,19 @@ function DiagnosePage() {
         }
     };
 
-    if (isLoading) return (
-        <div className="flex justify-center items-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7C74EE]"></div>
-        </div>
-    );
+    if (isLoading)
+        return (
+            <div className="flex justify-center items-center min-h-[60vh]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7C74EE]"></div>
+            </div>
+        );
+
+    // reset
+    const resetDiagnose = () => {
+        setStep(0);
+        setAnswers([]);
+        setErrorMsg("");
+    };
 
     // Layar Selesai (Menunggu Submit)
     if (gejalas.length > 0 && step >= gejalas.length) {
@@ -63,24 +70,35 @@ function DiagnosePage() {
             <div className="max-w-2xl mx-auto p-12 bg-white shadow-2xl rounded-3xl text-center border border-gray-100 animate-fade-in">
                 <div className="mb-6 text-6xl">✨</div>
                 <h2 className="text-3xl font-extrabold text-gray-800 mb-4">Diagnosa Selesai!</h2>
-                <p className="text-gray-600 mb-8 text-lg">
-                    Sistem telah merangkum semua jawaban Bunda. Klik tombol di bawah untuk melihat hasil analisis.
-                </p>
+                <p className="text-gray-600 mb-8 text-lg">Sistem telah merangkum semua jawaban Bunda. Klik tombol di bawah untuk melihat hasil analisis.</p>
 
                 {/* Menampilkan pesan error jika ada */}
-                {errorMsg && (
-                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-2xl mb-6 font-medium">
-                        ⚠️ {errorMsg}
-                    </div>
-                )}
+                {errorMsg && <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-2xl mb-6 font-medium">⚠️ {errorMsg}</div>}
 
-                <button
-                    onClick={submitDiagnose}
-                    disabled={isSubmitting}
-                    className={`w-full md:w-auto bg-[#7C74EE] text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#6860d1] transition-all transform hover:scale-105 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                    {isSubmitting ? "Memproses..." : "Lihat Hasil Diagnosa"}
-                </button>
+                <div className="flex w-full justify-center gap-6">
+                    <button
+                        onClick={submitDiagnose}
+                        disabled={isSubmitting}
+                        className={`w-full md:w-auto bg-[#7C74EE] text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#6860d1] transition-all transform hover:scale-105 ${
+                            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
+                    >
+                        {isSubmitting ? "Memproses..." : "Lihat Hasil Diagnosa"}
+                    </button>
+
+                    {/* <Link
+                        to="/diagnose"
+                        className="flex items-center justify-center gap-2 bg-[#7C74EE] text-white py-4 px-11 rounded-full font-bold shadow-lg hover:shadow-indigo-200 transition-all active:scale-95"
+                    >
+                        <FaRedo size={16} /> Diagnosa Ulang
+                    </Link> */}
+                    <button
+                        onClick={resetDiagnose}
+                        className="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-4 px-11 rounded-full font-bold hover:bg-[#7C74EE] hover:text-white transition-all"
+                    >
+                        <FaRedo size={16} /> Diagnosa Ulang
+                    </button>
+                </div>
             </div>
         );
     }
@@ -88,17 +106,16 @@ function DiagnosePage() {
     const progress = gejalas.length > 0 ? (step / gejalas.length) * 100 : 0;
 
     return (
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-3xl mx-auto pt-17">
             <div className="mb-8">
                 <div className="flex justify-between items-end mb-2">
                     <span className="text-[#7C74EE] font-bold">Progres Diagnosa</span>
-                    <span className="text-gray-400 text-sm">{step} dari {gejalas.length}</span>
+                    <span className="text-gray-400 text-sm">
+                        {step} dari {gejalas.length}
+                    </span>
                 </div>
                 <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
-                    <div 
-                        className="bg-[#7C74EE] h-full transition-all duration-500 ease-out" 
-                        style={{ width: `${progress}%` }}
-                    ></div>
+                    <div className="bg-[#7C74EE] h-full transition-all duration-500 ease-out" style={{ width: `${progress}%` }}></div>
                 </div>
             </div>
 
