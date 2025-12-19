@@ -32,7 +32,7 @@ function Header() {
                     <ul className='flex space-x-8 font-medium text-gray-700'>
                         <li><Link to='/' className='hover:text-blue-600 transition'>Home</Link></li>
                         <li><Link to='/about' className='hover:text-blue-600 transition'>About</Link></li>
-                        <li><Link to='/diagnosa' className='hover:text-blue-600 transition'>Diagnosa</Link></li>
+                        <li><Link to='/diagnose' className='hover:text-blue-600 transition'>Diagnosa</Link></li>
                     </ul>
                 </nav>
 

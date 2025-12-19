@@ -1,64 +1,66 @@
-// backend/controllers/diagnoseController.js
-import Rule from '../models/Rule.js';
-import asyncHandler from 'express-async-handler';
+import Rule from "../models/Rule.js";
+import asyncHandler from "express-async-handler";
 
-// @desc    Melakukan Diagnosis berdasarkan Gejala yang dipilih
-// @route   POST /api/diagnose
-// @access  Public (atau Private, tergantung kebutuhan aplikasi)
 export const diagnose = asyncHandler(async (req, res) => {
-    // Input: Array ID Gejala yang dialami pengguna (dari frontend)
-    const { selectedGejalaIds } = req.body;
+    const { answers } = req.body;
 
-    if (!selectedGejalaIds || selectedGejalaIds.length === 0) {
+    // 1. Validasi Input: Pastikan answers ada dan punya gejalaId
+    if (!answers || !Array.isArray(answers)) {
         res.status(400);
-        throw new Error('Pilih minimal satu gejala untuk memulai diagnosis.');
+        throw new Error("Format jawaban tidak valid");
     }
 
-    // 1. Ambil semua Rule dari database
-    const rules = await Rule.find({})
-        .populate('penyakit', 'kode nama deskripsi solusi pencegahan')
-        .populate('gejala', 'kode nama');
+    const selectedGejalaIds = answers
+        .filter((a) => a.value === 1 && a.gejalaId) // Pastikan gejalaId tidak null
+        .map((a) => a.gejalaId.toString());
 
-    if (!rules || rules.length === 0) {
-        res.status(404);
-        throw new Error('Basis aturan (Rule) belum ditemukan. Hubungi admin.');
-    }
+    // 2. Ambil semua rule dan populate
+    const allRules = await Rule.find({}).populate("penyakit").populate("gejala");
 
-    let results = [];
-    
-    // 2. Lakukan Inferensi (Contoh: Simple Forward Chaining/Matching)
-    rules.forEach(rule => {
-        // Cek apakah SEMUA Gejala dalam satu Rule terpenuhi oleh Gejala yang dipilih pengguna
-        // rule.gejala adalah array objek Mongoose
-        
-        const ruleGejalaIds = rule.gejala.map(g => g._id.toString());
-        
-        const isMatch = ruleGejalaIds.every(id => selectedGejalaIds.includes(id));
-        
-        if (isMatch) {
-            // Jika semua gejala dalam rule cocok, tambahkan penyakit ke hasil
-            results.push({
+    const diseaseMap = {};
+
+    allRules.forEach((rule) => {
+        // 1. Validasi data
+        if (!rule.penyakit || !rule.gejala || !Array.isArray(rule.gejala)) return;
+
+        const pId = rule.penyakit._id.toString();
+
+        if (!diseaseMap[pId]) {
+            diseaseMap[pId] = {
                 penyakit: rule.penyakit,
-                bobot: rule.bobot, // Bobot kepastian (CF) dari Rule ini
-                matchedGejalaCount: ruleGejalaIds.length,
-            });
+                totalGejalaDiSistem: 0,
+                gejalaCocok: 0,
+            };
         }
+
+        // 2. Loop di dalam array gejala milik rule tersebut
+        rule.gejala.forEach((g) => {
+            diseaseMap[pId].totalGejalaDiSistem += 1;
+
+            // Cek apakah ID gejala ini ada dalam jawaban user
+            if (selectedGejalaIds.includes(g._id.toString())) {
+                diseaseMap[pId].gejalaCocok += 1;
+            }
+        });
     });
 
-    // 3. Filter dan tampilkan hasil terbaik
-    if (results.length > 0) {
-        // Urutkan berdasarkan bobot atau jumlah gejala yang cocok (opsional)
-        // results.sort((a, b) => b.bobot - a.bobot);
+    // 3. Kalkulasi hasil akhir
+    const finalResults = Object.values(diseaseMap)
+        .map((item) => {
+            const percentage = (item.gejalaCocok / item.totalGejalaDiSistem) * 100;
+            return {
+                penyakit: item.penyakit,
+                persentase: Math.round(percentage),
+                gejalaCocok: item.gejalaCocok,
+                totalGejala: item.totalGejalaDiSistem,
+            };
+        })
+        .filter((r) => r.persentase > 0)
+        .sort((a, b) => b.persentase - a.persentase);
 
-        res.json({
-            message: "Diagnosis selesai",
-            diagnosis: results,
-            topResult: results[0] // Tampilkan hasil teratas
-        });
-    } else {
-        res.json({
-            message: "Tidak ada penyakit yang cocok dengan kombinasi gejala yang dipilih.",
-            diagnosis: [],
-        });
-    }
+    res.json({
+        message: "Diagnosa berhasil",
+        diagnosis: finalResults,
+        topResult: finalResults[0] || null,
+    });
 });

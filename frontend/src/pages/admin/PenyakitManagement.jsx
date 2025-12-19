@@ -99,7 +99,7 @@ useEffect(() => {
     if (isLoading) return <div className="p-6 text-center text-xl">Memuat data...</div>;
 
     return (
-        <div className="p-6">
+        <div className="p-6 max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-indigo-700">Manajemen Data Penyakit ({Penyakit?.length || 0})</h1>
 
             <button onClick={() => (showForm ? resetForm() : setShowForm(true))} className="bg-indigo-600 text-white px-4 py-2 rounded-lg mb-6 hover:bg-indigo-700 transition flex items-center">

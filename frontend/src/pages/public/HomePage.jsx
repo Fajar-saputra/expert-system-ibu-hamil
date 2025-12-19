@@ -8,7 +8,7 @@ export default function HomePage() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12 pt-10">
                 {/* Sisi Kiri: Teks Konten */}
                 <div className="w-full lg:w-3/5 space-y-6 animate-fade-in">
-                    <h1 className="text-5xl font-extrabold leading-none text-[#7C74EE]">
+                    <h1 className="text-5xl font-extrabold leading-none text-[#6155F5]">
                         Diagnosa Penyakit <br /> Ibu Hamil
                     </h1>
 

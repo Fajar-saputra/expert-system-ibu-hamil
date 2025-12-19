@@ -15,6 +15,8 @@ import Dashboard from "./pages/admin/Dashboard";
 import GejalaManagement from "./pages/admin/GejalaManagement";
 import PenyakitManagement from "./pages/admin/PenyakitManagement";
 import RuleManagement from "./pages/admin/RuleManagement";
+import DiagnosePage from "./pages/public/DiagnosePage";
+import ResultPage from "./pages/public/ResultPage";
 
 function App() {
     return (
@@ -28,6 +30,8 @@ function App() {
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/" element={<HomePage />} />
                         <Route path="/about" element={<AboutPage />} />
+                        <Route path="/diagnose" element={<DiagnosePage />} />
+                        <Route path="/result" element={<ResultPage />} />
 
                         {/* 🛑 Rute Admin (PRIVATE ROUTE) 🛑 */}
                         <Route path="/admin" element={<AdminRoute />}>

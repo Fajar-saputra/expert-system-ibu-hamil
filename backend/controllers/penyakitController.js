@@ -18,7 +18,7 @@ export const getPenyakitById = asyncHandler(async (req, res) => {
         res.json(penyakit);
     } else {
         res.status(404);
-        throw new Error("Penyakit tidak ditemukan"); 
+        throw new Error("Penyakit tidak ditemukan");
     }
 });
 
@@ -27,15 +27,15 @@ export const getPenyakitById = asyncHandler(async (req, res) => {
 export const createPenyakit = asyncHandler(async (req, res) => {
     // 1. Destructuring HANYA field yang dikirim dari Postman
     const { kode, nama, deskripsi, solusi, pencegahan } = req.body;
-    
+
     // 2. Buat objek Penyakit secara eksplisit
     const penyakit = await Penyakit.create({
         kode: kode,
         nama: nama,
         deskripsi: deskripsi,
         solusi: solusi,
-        pencegahan: pencegahan || '', // Gunakan nilai default jika tidak ada pencegahan
-    }); 
+        pencegahan: pencegahan || "", // Gunakan nilai default jika tidak ada pencegahan
+    });
 
     res.status(201).json(penyakit);
 });
@@ -58,11 +58,21 @@ export const updatePenyakit = asyncHandler(async (req, res) => {
 
 // @desc    Menghapus Penyakit (Admin only)
 // @route   DELETE /api/penyakit/:id
+// backend/controllers/penyakitController.js
+
 export const deletePenyakit = asyncHandler(async (req, res) => {
-    const penyakit = await Penyakit.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    const penyakit = await Penyakit.findById(id);
 
     if (penyakit) {
-        res.json({ message: "Penyakit berhasil dihapus" });
+        // 1. Hapus penyakitnya
+        await Penyakit.findByIdAndDelete(id);
+
+        // 2. OTOMATIS hapus rule yang memakai penyakit ini (CASCADE DELETE)
+        await Rule.deleteMany({ penyakit: id });
+
+        res.json({ message: "Penyakit dan Rule terkait berhasil dihapus" });
     } else {
         res.status(404);
         throw new Error("Penyakit tidak ditemukan");
@@ -73,10 +83,10 @@ export const deletePenyakit = asyncHandler(async (req, res) => {
 // @route   DELETE /api/penyakit/
 export const deleteAllPenyakit = asyncHandler(async (req, res) => {
     // Mongoose Model.deleteMany({}) akan menghapus semua dokumen dalam koleksi
-    const result = await Penyakit.deleteMany({}); 
+    const result = await Penyakit.deleteMany({});
 
     res.json({
-        message: 'Semua data Penyakit berhasil dihapus.',
+        message: "Semua data Penyakit berhasil dihapus.",
         count: result.deletedCount, // Menampilkan jumlah dokumen yang dihapus
     });
-})
+});

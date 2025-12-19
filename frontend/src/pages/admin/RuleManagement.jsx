@@ -91,7 +91,7 @@ function RuleManagement() {
     if (isLoading) return <div className="p-6 text-center">Memuat Basis Pengetahuan...</div>;
 
     return (
-        <div className="p-6">
+        <div className="p-6 max-w-5xl mx-auto">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-indigo-700">Basis Aturan (Rules)</h1>
                 <button onClick={() => (showForm ? resetForm() : setShowForm(true))} className={`px-4 py-2 rounded-lg text-white flex items-center ${showForm ? "bg-red-500" : "bg-indigo-600"}`}>
@@ -138,7 +138,7 @@ function RuleManagement() {
                         </div>
                         <div className="flex flex-col">
                             <label className="text-sm font-bold mb-1">Bobot (0 - 1)</label>
-                            <input type="number" step="0.1" min="0" max="1" name="bobot" value={formData.bobot} onChange={onChange} className="p-2 border rounded" required />
+                            <input type="number" step="0.01" min="0" max="1" name="bobot" value={formData.bobot} onChange={onChange} className="p-2 border rounded" required />
                         </div>
                         <div className="md:col-span-3 flex justify-end">
                             <button type="submit" className="bg-green-600 text-white px-8 py-2 rounded hover:bg-green-700">

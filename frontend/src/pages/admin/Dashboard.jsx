@@ -14,7 +14,7 @@ function Dashboard() {
     const userRole = user ? user.role : 'admin';
 
     return (
-        <div className="p-6 bg-white shadow-xl rounded-lg">
+        <div className="p-6 bg-white shadow-xl rounded-lg max-w-5xl mx-auto">
             <h1 className="text-4xl font-bold text-blue-700 mb-2">
                 Selamat Datang, {userName}!
             </h1>

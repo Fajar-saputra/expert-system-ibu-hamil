@@ -116,7 +116,7 @@ const handleEdit = (gejala) => {
     }
 
     return (
-        <div className="p-6">
+        <div className="p-6 max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-blue-700">Manajemen Data Gejala ({gejalas.length} data)</h1>
 
             <button
