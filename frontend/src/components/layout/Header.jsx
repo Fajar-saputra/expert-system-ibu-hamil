@@ -68,19 +68,19 @@ function Header() {
                             /* Menu untuk User Biasa / Tamu */
                             <>
                                 <li>
-                                    <Link to="/" className="hover:text-white transition-colors duration-200 border-b-2 border-transparent hover:border-white py-1">
+                                    <NavLink to="/" className={navClass}>
                                         Home
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <Link to="/about" className="hover:text-white transition-colors duration-200 border-b-2 border-transparent hover:border-white py-1">
+                                    <NavLink to="/about" className={navClass}>
                                         About
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <Link to="/diagnose" className="hover:text-white transition-colors duration-200 border-b-2 border-transparent hover:border-white py-1">
+                                    <NavLink to="/diagnose" className={navClass}>
                                         Diagnosa
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </>
                         )}

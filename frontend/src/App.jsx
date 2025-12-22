@@ -17,32 +17,38 @@ import PenyakitManagement from "./pages/admin/PenyakitManagement";
 import RuleManagement from "./pages/admin/RuleManagement";
 import DiagnosePage from "./pages/public/DiagnosePage";
 import ResultPage from "./pages/public/ResultPage";
+import AuthLayout from "./components/layout/AuthLayout";
+import MainLayout from "./components/layout/MainLayout";
 
 function App() {
     return (
         <>
             <Router>
-                <Header />
-                <div className="container mx-auto">
-                    <Routes>
-                        {/* Rute Publik */}
+                <Routes>
+                    {/* ===== AUTH PAGES (NO HEADER) ===== */}
+                    <Route element={<AuthLayout />}>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
+                    </Route>
+
+                    {/* ===== MAIN APP (WITH HEADER) ===== */}
+                    <Route element={<MainLayout />}>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/diagnose" element={<DiagnosePage />} />
                         <Route path="/result" element={<ResultPage />} />
 
-                        {/* Rute Admin (PRIVATE ROUTE) */}
+                        {/* ADMIN */}
                         <Route path="/admin" element={<AdminRoute />}>
                             <Route index element={<Dashboard />} />
                             <Route path="gejala" element={<GejalaManagement />} />
                             <Route path="penyakit" element={<PenyakitManagement />} />
                             <Route path="rule" element={<RuleManagement />} />
                         </Route>
-                    </Routes>
-                </div>
+                    </Route>
+                </Routes>
             </Router>
+
             <ToastContainer />
         </>
     );
