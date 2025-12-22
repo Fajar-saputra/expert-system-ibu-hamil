@@ -1,5 +1,3 @@
-// frontend/src/pages/admin/Dashboard.jsx
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';

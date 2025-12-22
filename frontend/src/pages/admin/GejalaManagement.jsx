@@ -1,5 +1,3 @@
-// frontend/src/pages/admin/GejalaManagement.jsx
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGejalas, createGejala, deleteGejala, reset, updateGejala } from "../../features/gejala/gejalaSlice";
@@ -18,9 +16,6 @@ function GejalaManagement() {
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
-    // Gunakan pola ini untuk keduanya
-
-    
     useEffect(() => {
         dispatch(getGejalas());
     }, [dispatch]);
@@ -28,11 +23,9 @@ function GejalaManagement() {
     useEffect(() => {
         if (isError) {
             toast.error(message);
-            // JANGAN panggil dispatch(reset()) di sini
         }
     }, [isError, message]);
 
-    // Panggil reset hanya saat benar-benar meninggalkan halaman
     useEffect(() => {
         return () => {
             dispatch(reset());
@@ -79,25 +72,16 @@ function GejalaManagement() {
         setFormData({ kode: "", nama: "", pertanyaan_diagnosa: "" });
     };
 
-    // Handler Edit
-    // const handleEdit = (gejala) => {
-    //     setFormData({ kode: gejala.kode, nama: gejala.nama });
-    //     setIsEditing(true);
-    //     setEditId(gejala._id);
-    //     setShowForm(true);
-    // };
-
-const handleEdit = (gejala) => {
-    setFormData({
-        kode: gejala.kode,
-        nama: gejala.nama,
-        pertanyaan_diagnosa: gejala.pertanyaan_diagnosa,
-    });
-    setIsEditing(true);
-    setEditId(gejala._id);
-    setShowForm(true);
-};
-
+    const handleEdit = (gejala) => {
+        setFormData({
+            kode: gejala.kode,
+            nama: gejala.nama,
+            pertanyaan_diagnosa: gejala.pertanyaan_diagnosa,
+        });
+        setIsEditing(true);
+        setEditId(gejala._id);
+        setShowForm(true);
+    };
 
     // Handler Delete
     const handleDelete = (id) => {
@@ -121,7 +105,6 @@ const handleEdit = (gejala) => {
 
             <button
                 onClick={() => {
-                    // 🛑 GANTI DENGAN INI 🛑
                     if (showForm) {
                         resetForm(); // Jika sedang tampil, tutup dan reset
                     } else {
@@ -192,10 +175,6 @@ const handleEdit = (gejala) => {
                 {gejalas.length === 0 && !isLoading && <p className="p-4 text-center text-gray-500">Belum ada data gejala.</p>}
             </div>
         </div>
-
-        // <div className="p-6">
-        //     <h1 className="text-4xl text-red-500">KOMPONEN INI BERHASIL DILOAD!</h1>
-        // </div>
     );
 }
 

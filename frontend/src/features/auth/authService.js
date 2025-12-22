@@ -1,5 +1,3 @@
-// frontend/src/features/auth/authService.js
-
 import axios from 'axios';
 
 // Ganti dengan URL backend Anda. 

@@ -1,5 +1,3 @@
-// frontend/src/pages/Register.jsx
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
@@ -161,7 +159,6 @@ useEffect(() => {
                     </Link>
                 </footer>
             </div>
-            {/* ToastContainer di App.jsx sudah cukup */}
         </div>
     );
 }

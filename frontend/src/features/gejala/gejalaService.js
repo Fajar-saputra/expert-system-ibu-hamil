@@ -1,5 +1,3 @@
-// frontend/src/features/gejala/gejalaService.js
-
 import axios from 'axios';
 
 const API_URL = '/api/gejala/';
@@ -70,26 +68,6 @@ const updateGejala = async (gejalaData) => {
     const response = await axios.put(API_URL + id, { kode, nama }, config);
     return response.data;
 };
-
-// const updateGejala = async (gejalaData) => {
-//     const { id, kode, nama, pertanyaan_diagnosa } = gejalaData;
-
-//     const token = getToken();
-//     const config = {
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//     };
-
-//     const response = await axios.put(API_URL + id, {
-//         kode,
-//         nama,
-//         pertanyaan_diagnosa,
-//     }, config);
-
-//     return response.data;
-// };
-
 
 const gejalaService = {
     createGejala,

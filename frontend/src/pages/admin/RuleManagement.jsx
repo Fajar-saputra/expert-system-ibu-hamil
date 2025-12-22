@@ -165,17 +165,6 @@ function RuleManagement() {
                                 <td className="py-4 px-6">
                                     <span className="font-bold text-indigo-600">{r.penyakit?.kode}</span> - {r.penyakit?.nama}
                                 </td>
-                                {/* <td className="py-4 px-6">
-                                    <span className="font-bold text-green-600">{r.gejala?.kode}</span> - {r.gejala?.nama}
-                                </td> */}
-                                {/* <td className="py-4 px-6">
-                                    {r.gejala?.map((g, index) => (
-                                        <div key={g._id} className="mb-1">
-                                            <span className="font-bold text-green-600">{g.kode}</span> - {g.nama}
-                                            {index < r.gejala.length - 1 && ","}
-                                        </div>
-                                    ))}
-                                </td> */}
                                 <td className="py-4 px-6">
                                     {r.gejala && r.gejala.length > 0 ? (
                                         <div className="flex flex-wrap gap-1">

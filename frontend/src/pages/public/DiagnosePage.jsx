@@ -85,13 +85,6 @@ function DiagnosePage() {
                     >
                         {isSubmitting ? "Memproses..." : "Lihat Hasil Diagnosa"}
                     </button>
-
-                    {/* <Link
-                        to="/diagnose"
-                        className="flex items-center justify-center gap-2 bg-[#7C74EE] text-white py-4 px-11 rounded-full font-bold shadow-lg hover:shadow-indigo-200 transition-all active:scale-95"
-                    >
-                        <FaRedo size={16} /> Diagnosa Ulang
-                    </Link> */}
                     <button
                         onClick={resetDiagnose}
                         className="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-4 px-11 rounded-full font-bold hover:bg-[#7C74EE] hover:text-white transition-all"

@@ -1,5 +1,3 @@
-// frontend/src/features/gejala/gejalaSlice.js
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import gejalaService from "./gejalaService";
 

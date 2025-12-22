@@ -1,4 +1,3 @@
-// backend/utils/generateToken.js
 import jwt from 'jsonwebtoken';
 
 const generateToken = (id) => {
@@ -8,5 +7,3 @@ const generateToken = (id) => {
 };
 
 export default generateToken;
-
-// Jangan lupa install JWT: npm install jsonwebtoken

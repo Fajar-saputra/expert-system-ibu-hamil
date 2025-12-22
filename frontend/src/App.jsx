@@ -33,7 +33,7 @@ function App() {
                         <Route path="/diagnose" element={<DiagnosePage />} />
                         <Route path="/result" element={<ResultPage />} />
 
-                        {/* 🛑 Rute Admin (PRIVATE ROUTE) 🛑 */}
+                        {/* Rute Admin (PRIVATE ROUTE) */}
                         <Route path="/admin" element={<AdminRoute />}>
                             <Route index element={<Dashboard />} />
                             <Route path="gejala" element={<GejalaManagement />} />

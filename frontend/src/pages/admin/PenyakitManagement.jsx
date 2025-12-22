@@ -24,13 +24,12 @@ function PenyakitManagement() {
  // 1. Ambil data HANYA SEKALI saat komponen pertama kali muncul
 useEffect(() => {
     dispatch(getPenyakits());
-}, [dispatch]); // Cukup dispatch sebagai dependency
+}, [dispatch]);
 
 // 2. Tangani Error secara terpisah
 useEffect(() => {
     if (isError) {
         toast.error(message);
-        // Kita tidak panggil dispatch(reset()) di sini untuk menghindari loop
     }
 }, [isError, message]); 
 

@@ -1,5 +1,3 @@
-// frontend/src/pages/Login.jsx
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
@@ -38,7 +36,6 @@ useEffect(() => {
         }
     } 
     
-    // 🛑 LOGIC TAMBAHAN: Jika user sudah login dan mencoba ke /login, paksa redirect ke home 🛑
     if (user && !isSuccess) {
          if (user.role === 'admin') {
             navigate('/admin', { replace: true });
@@ -126,7 +123,6 @@ useEffect(() => {
                     </Link>
                 </footer>
             </div>
-            {/* ToastContainer biasanya di App.jsx, tapi diletakkan di sini juga tidak masalah */}
             <ToastContainer position="top-center" />
         </div>
     );
