@@ -1,14 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from "path"; // Tambahkan ini
+import { fileURLToPath } from "url"; // Tambahkan ini
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import penyakitRoutes from "./routes/penyakitRoutes.js";
 import gejalaRoutes from "./routes/gejalaRoutes.js";
 import ruleRoutes from "./routes/ruleRoutes.js";
 import diagnoseRoutes from "./routes/diagnoseRoutes.js";
+import articleRoutes from "./routes/articleRoutes.js"; // Import route baru
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-
 import cors from "cors";
+
+// --- KONFIGURASI __dirname UNTUK ES MODULES ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// ----------------------------------------------
 
 dotenv.config({ path: "./.env" });
 
@@ -30,6 +37,11 @@ app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// --- MEMBUAT FOLDER UPLOADS JADI STATIS ---
+// Sekarang gambar bisa diakses via http://localhost:5000/uploads/nama-file.jpg
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// ------------------------------------------
+
 app.get("/", (req, res) => {
     res.send("API is running for Expert System Ibu Hamil");
 });
@@ -40,6 +52,7 @@ app.use("/api/penyakit", penyakitRoutes);
 app.use("/api/gejala", gejalaRoutes);
 app.use("/api/rule", ruleRoutes);
 app.use("/api/diagnose", diagnoseRoutes);
+app.use("/api/articles", articleRoutes); // Daftarkan rute artikel di sini
 
 app.use(notFound);
 app.use(errorHandler);
