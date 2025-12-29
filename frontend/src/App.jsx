@@ -19,6 +19,9 @@ import DiagnosePage from "./pages/public/DiagnosePage";
 import ResultPage from "./pages/public/ResultPage";
 import AuthLayout from "./components/layout/AuthLayout";
 import MainLayout from "./components/layout/MainLayout";
+import ArticlesPage from "./pages/public/ArticlesPage";
+import AdminArticleForm from "./pages/admin/AdminArticleForm";
+import AdminArticleList from "./pages/admin/AdminArticleList";
 
 function App() {
     return (
@@ -37,6 +40,8 @@ function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/diagnose" element={<DiagnosePage />} />
                         <Route path="/result" element={<ResultPage />} />
+                        <Route path="/artikel" element={<ArticlesPage />} />
+                        <Route path="/artikel/:slug" element={<ArticlesPage />} />
 
                         {/* ADMIN */}
                         <Route path="/admin" element={<AdminRoute />}>
@@ -44,6 +49,8 @@ function App() {
                             <Route path="gejala" element={<GejalaManagement />} />
                             <Route path="penyakit" element={<PenyakitManagement />} />
                             <Route path="rule" element={<RuleManagement />} />
+                            <Route path="/admin/articles" element={<AdminArticleList />} />
+                            <Route path="/admin/articles/create" element={<AdminArticleForm />} />
                         </Route>
                     </Route>
                 </Routes>

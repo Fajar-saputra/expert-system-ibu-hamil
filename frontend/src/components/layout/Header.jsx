@@ -63,6 +63,11 @@ function Header() {
                                         Rule
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to="/admin/artikel/create" className={navClass}>
+                                        Article
+                                    </NavLink>
+                                </li>
                             </>
                         ) : (
                             /* Menu untuk User Biasa / Tamu */
@@ -75,6 +80,11 @@ function Header() {
                                 <li>
                                     <NavLink to="/about" className={navClass}>
                                         About
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/artikel//${art.slug}" className={navClass}>
+                                        Article
                                     </NavLink>
                                 </li>
                                 <li>
