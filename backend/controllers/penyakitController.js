@@ -59,7 +59,6 @@ export const updatePenyakit = asyncHandler(async (req, res) => {
 // @desc    Menghapus Penyakit (Admin only)
 // @route   DELETE /api/penyakit/:id
 // backend/controllers/penyakitController.js
-
 export const deletePenyakit = asyncHandler(async (req, res) => {
     const { id } = req.params;
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGejalas } from "../../features/gejala/gejalaSlice";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { FaRedo } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +13,7 @@ function DiagnosePage() {
     const [step, setStep] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [errorMsg, setErrorMsg] = useState(""); // State error sekarang di dalam komponen
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         dispatch(getGejalas());

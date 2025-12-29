@@ -21,24 +21,24 @@ function PenyakitManagement() {
     const [editId, setEditId] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
- // 1. Ambil data HANYA SEKALI saat komponen pertama kali muncul
-useEffect(() => {
-    dispatch(getPenyakits());
-}, [dispatch]);
+    // 1. Ambil data HANYA SEKALI saat komponen pertama kali muncul
+    useEffect(() => {
+        dispatch(getPenyakits());
+    }, [dispatch]);
 
-// 2. Tangani Error secara terpisah
-useEffect(() => {
-    if (isError) {
-        toast.error(message);
-    }
-}, [isError, message]); 
+    // 2. Tangani Error secara terpisah
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+    }, [isError, message]);
 
-// 3. Reset state HANYA SAAT pindah halaman (unmount)
-useEffect(() => {
-    return () => {
-        dispatch(reset());
-    };
-}, [dispatch]);
+    // 3. Reset state HANYA SAAT pindah halaman (unmount)
+    useEffect(() => {
+        return () => {
+            dispatch(reset());
+        };
+    }, [dispatch]);
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

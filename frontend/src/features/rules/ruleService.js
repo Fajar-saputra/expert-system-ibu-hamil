@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/rule/';
+const API_URL = "/api/rule/";
 
 // Helper function untuk config (Auth Header)
 const getConfig = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     const token = user ? user.token : null;
 
     return {
@@ -46,7 +46,6 @@ const deleteRule = async (id) => {
     const response = await axios.delete(API_URL + id, getConfig());
     return response.data;
 };
-
 
 const ruleService = {
     createRule,

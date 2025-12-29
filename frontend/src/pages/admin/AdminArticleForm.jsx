@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useParams, useNavigate } from "react-router-dom"; // Tambahkan ini
+import { useParams, useNavigate } from "react-router-dom";
 
 const AdminArticleForm = () => {
     const { id } = useParams(); // Ambil ID dari URL jika sedang mode edit
@@ -57,12 +57,12 @@ const AdminArticleForm = () => {
         formData.append("title", title);
         formData.append("slug", slug);
         formData.append("content", content);
-        if (image) formData.append("image", image); // Hanya kirim jika ada file baru
+        if (image) formData.append("image", image);
         formData.append("diseaseId", diseaseId);
 
         try {
             const config = { headers: { "Content-Type": "multipart/form-data" } };
-            
+
             if (isEditMode) {
                 // Update pakai PUT
                 await axios.put(`http://localhost:5000/api/articles/${id}`, formData, config);
@@ -74,7 +74,7 @@ const AdminArticleForm = () => {
             }
 
             // ✅ REDIRECT KEMBALI KE LIST
-            navigate("/admin/artikel"); 
+            navigate("/admin/artikel");
         } catch (error) {
             console.error(error);
             alert(isEditMode ? "Gagal memperbarui artikel" : "Gagal menambah artikel");
@@ -83,9 +83,7 @@ const AdminArticleForm = () => {
 
     return (
         <div className="bg-white p-8 rounded shadow-md max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6 border-b pb-2">
-                {isEditMode ? "Edit Artikel" : "Tambah Artikel Edukasi"}
-            </h2>
+            <h2 className="text-2xl font-bold mb-6 border-b pb-2">{isEditMode ? "Edit Artikel" : "Tambah Artikel Edukasi"}</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -109,15 +107,15 @@ const AdminArticleForm = () => {
                     <select className="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm" value={diseaseId} onChange={(e) => setDiseaseId(e.target.value)} required>
                         <option value="">-- Pilih Penyakit --</option>
                         {diseases.map((d) => (
-                            <option key={d._id} value={d._id}>{d.nama}</option>
+                            <option key={d._id} value={d._id}>
+                                {d.nama}
+                            </option>
                         ))}
                     </select>
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                        Gambar Utama {isEditMode && <span className="text-xs text-blue-500">(Kosongkan jika tidak ingin ganti)</span>}
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700">Gambar Utama {isEditMode && <span className="text-xs text-blue-500">(Kosongkan jika tidak ingin ganti)</span>}</label>
                     <input
                         ref={fileRef}
                         type="file"

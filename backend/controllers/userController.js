@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
-// Pastikan Anda sudah menginstal npm install bcryptjs jsonwebtoken
 
 // @desc    Auth user & get token (Login)
 // @route   POST /api/users/login
@@ -77,8 +76,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
-// ... (setelah fungsi getUserProfile)
-
 // @desc    Buat user Admin PERTAMA (Hanya digunakan untuk setup awal)
 // @route   POST /api/users/init-admin
 // @access  Public (HANYA UNTUK SETUP)
@@ -98,7 +95,7 @@ export const initAdmin = asyncHandler(async (req, res) => {
             email,
             password,
             role: "admin",
-            isAdmin: true, // Berikan nilai true secara eksplisit
+            isAdmin: true, 
         });
 
         res.status(201).json({
@@ -107,7 +104,7 @@ export const initAdmin = asyncHandler(async (req, res) => {
             nama: adminUser.nama,
             email: adminUser.email,
             role: adminUser.role,
-            isAdmin: adminUser.isAdmin, // Pastikan ini dikirim ke frontend
+            isAdmin: adminUser.isAdmin,
             token: generateToken(adminUser._id),
         });
     } catch (error) {

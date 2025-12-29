@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/penyakit/';
+const API_URL = "/api/penyakit/";
 
 const getConfig = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     return { headers: { Authorization: `Bearer ${user.token}` } };
 };
 

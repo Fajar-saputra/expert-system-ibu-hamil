@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 const ArticlesPage = () => {
     const [articles, setArticles] = useState([]);
     const [currentArticle, setCurrentArticle] = useState(null);
-    const { slug } = useParams(); // Mengambil slug dari URL
+    const { slug } = useParams();
 
     // 1. Fetch daftar judul untuk Sidebar Kiri
     useEffect(() => {

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const AdminRoute = () => {
     const { user, isLoading } = useSelector((state) => state.auth); 
     
-    // 1. Jika masih loading, tampilkan loading state (Penting!)
+    // 1. Jika masih loading, tampilkan loading state
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -21,7 +21,6 @@ const AdminRoute = () => {
     } 
     
     // 3. Jika bukan admin ATAU tidak ada user (sudah stop loading)
-    // Beri tahu user dan redirect
     if (!user || user.role !== 'admin') {
         if (!user) {
             toast.error("Anda harus login untuk mengakses halaman ini.");

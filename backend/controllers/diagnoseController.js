@@ -1,5 +1,5 @@
 import Rule from "../models/Rule.js";
-import Gejala from "../models/Gejala.js"; // Import model Gejala untuk menghitung total pertanyaan
+import Gejala from "../models/Gejala.js";
 import asyncHandler from "express-async-handler";
 
 export const diagnose = asyncHandler(async (req, res) => {
@@ -11,7 +11,7 @@ export const diagnose = asyncHandler(async (req, res) => {
         throw new Error("Format jawaban tidak valid");
     }
 
-    // --- TAMBAHAN VALIDASI ANTI-ASAL-KLIK ---
+    // --- TAMBAHAN VALIDASI ---
     const totalGejalas = await Gejala.countDocuments(); // Ambil total semua gejala di database
     const selectedGejalaIds = answers
         .filter((a) => a.value === 1 && a.gejalaId)
@@ -23,7 +23,7 @@ export const diagnose = asyncHandler(async (req, res) => {
             message: "Diagnosa tidak valid karena terlalu banyak gejala dipilih",
             diagnosis: [],
             topResult: null,
-            isInvalid: true // Flag untuk frontend memberikan pesan peringatan khusus
+            isInvalid: true 
         });
     }
     // ----------------------------------------

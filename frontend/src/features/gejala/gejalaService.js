@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/gejala/';
+const API_URL = "/api/gejala/";
 
-// Fungsi untuk mendapatkan token dari Local Storage
 const getToken = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
     return user ? user.token : null;
 };
 

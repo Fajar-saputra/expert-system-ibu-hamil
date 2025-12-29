@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 
-// 1️⃣ Get semua artikel (Sidebar kiri)
+// Get semua artikel (Sidebar kiri)
 export const getAllArticles = async (req, res) => {
     try {
         const articles = await Article.find()
@@ -16,7 +16,7 @@ export const getAllArticles = async (req, res) => {
     }
 };
 
-// 2️⃣ Get satu artikel berdasarkan slug (Konten utama + sidebar kanan)
+//  Get satu artikel berdasarkan slug (Konten utama + sidebar kanan)
 export const getArticleBySlug = async (req, res) => {
     try {
         const article = await Article.findOne({ slug: req.params.slug })
@@ -32,7 +32,7 @@ export const getArticleBySlug = async (req, res) => {
     }
 };
 
-// 3️⃣ Create artikel baru
+//  Create artikel baru
 export const createArticle = async (req, res) => {
     const { title, slug, content, diseaseId } = req.body;
     const image = req.file ? `/uploads/${req.file.filename}` : null;

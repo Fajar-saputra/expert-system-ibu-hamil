@@ -1,30 +1,30 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const penyakitSchema = mongoose.Schema(
     {
         kode: {
             type: String,
-            required: [true, 'Kode penyakit harus diisi'],
+            required: [true, "Kode penyakit harus diisi"],
             unique: true,
             trim: true,
             uppercase: true,
         },
         nama: {
             type: String,
-            required: [true, 'Nama penyakit harus diisi'],
+            required: [true, "Nama penyakit harus diisi"],
             trim: true,
         },
         deskripsi: {
             type: String,
-            required: [true, 'Deskripsi penyakit harus diisi'],
+            required: [true, "Deskripsi penyakit harus diisi"],
         },
-        solusi: { // Nama field adalah 'solusi'
+        solusi: {
             type: String,
-            required: [true, 'Solusi atau penanganan harus diisi'], 
+            required: [true, "Solusi atau penanganan harus diisi"],
         },
         pencegahan: {
             type: String,
-            required: false, 
+            required: false,
         },
     },
     {
@@ -32,5 +32,5 @@ const penyakitSchema = mongoose.Schema(
     }
 );
 
-const Penyakit = mongoose.model('Penyakit', penyakitSchema);
+const Penyakit = mongoose.model("Penyakit", penyakitSchema);
 export default Penyakit;

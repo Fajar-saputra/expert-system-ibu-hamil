@@ -1,17 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import ruleService from './ruleService';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import ruleService from "./ruleService";
 
 const initialState = {
     rules: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
-    message: '',
+    message: "",
 };
 
 // --- Async Thunks (CREATE, READ, UPDATE, DELETE) ---
-
-export const getRules = createAsyncThunk('rule/getAll', async (_, thunkAPI) => {
+export const getRules = createAsyncThunk("rule/getAll", async (_, thunkAPI) => {
     try {
         return await ruleService.getRules();
     } catch (error) {
@@ -20,7 +19,7 @@ export const getRules = createAsyncThunk('rule/getAll', async (_, thunkAPI) => {
     }
 });
 
-export const createRule = createAsyncThunk('rule/create', async (ruleData, thunkAPI) => {
+export const createRule = createAsyncThunk("rule/create", async (ruleData, thunkAPI) => {
     try {
         return await ruleService.createRule(ruleData);
     } catch (error) {
@@ -29,7 +28,7 @@ export const createRule = createAsyncThunk('rule/create', async (ruleData, thunk
     }
 });
 
-export const updateRule = createAsyncThunk('rule/update', async (ruleData, thunkAPI) => {
+export const updateRule = createAsyncThunk("rule/update", async (ruleData, thunkAPI) => {
     try {
         return await ruleService.updateRule(ruleData);
     } catch (error) {
@@ -38,7 +37,7 @@ export const updateRule = createAsyncThunk('rule/update', async (ruleData, thunk
     }
 });
 
-export const deleteRule = createAsyncThunk('rule/delete', async (id, thunkAPI) => {
+export const deleteRule = createAsyncThunk("rule/delete", async (id, thunkAPI) => {
     try {
         await ruleService.deleteRule(id);
         return id;
@@ -48,11 +47,9 @@ export const deleteRule = createAsyncThunk('rule/delete', async (id, thunkAPI) =
     }
 });
 
-
 // --- Rule Slice ---
-
 export const ruleSlice = createSlice({
-    name: 'rule',
+    name: "rule",
     initialState,
     reducers: {
         reset: (state) => initialState,
@@ -85,9 +82,9 @@ export const ruleSlice = createSlice({
             // --- UPDATE RULE ---
             .addCase(updateRule.fulfilled, (state, action) => {
                 state.isSuccess = true;
-                const index = state.rules.findIndex(r => r._id === action.payload._id);
+                const index = state.rules.findIndex((r) => r._id === action.payload._id);
                 if (index !== -1) {
-                    state.rules[index] = action.payload; 
+                    state.rules[index] = action.payload;
                 }
             })
             .addCase(updateRule.rejected, (state, action) => {
@@ -97,9 +94,7 @@ export const ruleSlice = createSlice({
             // --- DELETE RULE ---
             .addCase(deleteRule.fulfilled, (state, action) => {
                 state.isSuccess = true;
-                state.rules = state.rules.filter(
-                    (rule) => rule._id !== action.payload
-                );
+                state.rules = state.rules.filter((rule) => rule._id !== action.payload);
             })
             .addCase(deleteRule.rejected, (state, action) => {
                 state.isError = true;

@@ -102,4 +102,3 @@ export const PenyakitSlice = createSlice({
 
 export const { reset } = PenyakitSlice.actions;
 export default PenyakitSlice.reducer;
-

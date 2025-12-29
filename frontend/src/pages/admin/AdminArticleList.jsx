@@ -29,9 +29,7 @@ const AdminArticleList = () => {
     // DELETE ARTICLE
     // =========================
     const handleDelete = async (id) => {
-        const confirmDelete = window.confirm(
-            "Yakin ingin menghapus artikel ini?"
-        );
+        const confirmDelete = window.confirm("Yakin ingin menghapus artikel ini?");
 
         if (!confirmDelete) return;
 
@@ -57,10 +55,7 @@ const AdminArticleList = () => {
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold">Manajemen Artikel</h2>
 
-                <Link
-                    to="/admin/artikel/create"
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
+                <Link to="/admin/artikel/create" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     + Tambah Artikel
                 </Link>
             </div>
@@ -69,43 +64,28 @@ const AdminArticleList = () => {
                 <thead className="bg-gray-100">
                     <tr>
                         <th className="border px-3 py-2 text-left">Judul</th>
-                        <th className="border px-3 py-2 text-center w-48">
-                            Aksi
-                        </th>
+                        <th className="border px-3 py-2 text-center w-48">Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {articles.length === 0 ? (
                         <tr>
-                            <td
-                                colSpan="2"
-                                className="text-center py-6 text-gray-500"
-                            >
+                            <td colSpan="2" className="text-center py-6 text-gray-500">
                                 Belum ada artikel
                             </td>
                         </tr>
                     ) : (
                         articles.map((article) => (
                             <tr key={article._id}>
-                                <td className="border px-3 py-2">
-                                    {article.title}
-                                </td>
+                                <td className="border px-3 py-2">{article.title}</td>
 
                                 <td className="border px-3 py-2 text-center space-x-2">
-                                    <Link
-                                        to={`/admin/artikel/edit/${article._id}`}
-                                        className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
-                                    >
+                                    <Link to={`/admin/artikel/edit/${article._id}`} className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
                                         Edit
                                     </Link>
 
-                                    <button
-                                        onClick={() =>
-                                            handleDelete(article._id)
-                                        }
-                                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                                    >
+                                    <button onClick={() => handleDelete(article._id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                         Hapus
                                     </button>
                                 </td>
