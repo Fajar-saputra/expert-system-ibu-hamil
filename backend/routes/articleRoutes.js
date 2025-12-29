@@ -5,7 +5,9 @@ import {
   getAllArticles,
   getArticleBySlug,
   createArticle,
-  deleteArticle
+  deleteArticle,
+  getArticleById,
+  updateArticle
 } from "../controllers/articleController.js";
 
 const router = express.Router();
@@ -23,10 +25,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Routes
+router.delete("/:id", deleteArticle);
 router.get("/", getAllArticles);
 router.get("/:slug", getArticleBySlug);
 router.post("/", upload.single("image"), createArticle);
-router.delete("/:id", deleteArticle);
+router.put("/:id", upload.single("image"), updateArticle);
+router.get("/edit/:id", getArticleById);
+
 
 
 export default router;

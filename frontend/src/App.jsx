@@ -51,6 +51,7 @@ function App() {
                             <Route path="rule" element={<RuleManagement />} />
                             <Route path="/admin/artikel" element={<AdminArticleList />} />
                             <Route path="/admin/artikel/create" element={<AdminArticleForm />} />
+                            <Route path="/admin/artikel/edit/:id" element={<AdminArticleForm />} />
                         </Route>
                     </Route>
                 </Routes>
