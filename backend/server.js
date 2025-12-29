@@ -52,7 +52,7 @@ app.use("/api/penyakit", penyakitRoutes);
 app.use("/api/gejala", gejalaRoutes);
 app.use("/api/rule", ruleRoutes);
 app.use("/api/diagnose", diagnoseRoutes);
-app.use("/api/articles", articleRoutes); // Daftarkan rute artikel di sini
+app.use("/api/articles", articleRoutes); 
 
 app.use(notFound);
 app.use(errorHandler);

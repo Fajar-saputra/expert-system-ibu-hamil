@@ -5,6 +5,7 @@ import {
   getAllArticles,
   getArticleBySlug,
   createArticle,
+  deleteArticle
 } from "../controllers/articleController.js";
 
 const router = express.Router();
@@ -25,5 +26,7 @@ const upload = multer({ storage });
 router.get("/", getAllArticles);
 router.get("/:slug", getArticleBySlug);
 router.post("/", upload.single("image"), createArticle);
+router.delete("/:id", deleteArticle);
+
 
 export default router;

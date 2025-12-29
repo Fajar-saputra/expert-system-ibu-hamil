@@ -49,3 +49,18 @@ export const createArticle = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+export const deleteArticle = async (req, res) => {
+    try {
+        const article = await Article.findById(req.params.id);
+
+        if (!article) {
+            return res.status(404).json({ message: "Artikel tidak ditemukan" });
+        }
+
+        await article.deleteOne();
+        res.status(200).json({ message: "Artikel berhasil dihapus" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

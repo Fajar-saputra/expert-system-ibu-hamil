@@ -64,7 +64,7 @@ function Header() {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin/artikel/create" className={navClass}>
+                                    <NavLink to="/admin/artikel" className={navClass}>
                                         Article
                                     </NavLink>
                                 </li>

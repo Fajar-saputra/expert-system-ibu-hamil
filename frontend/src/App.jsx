@@ -49,8 +49,8 @@ function App() {
                             <Route path="gejala" element={<GejalaManagement />} />
                             <Route path="penyakit" element={<PenyakitManagement />} />
                             <Route path="rule" element={<RuleManagement />} />
-                            <Route path="/admin/articles" element={<AdminArticleList />} />
-                            <Route path="/admin/articles/create" element={<AdminArticleForm />} />
+                            <Route path="/admin/artikel" element={<AdminArticleList />} />
+                            <Route path="/admin/artikel/create" element={<AdminArticleForm />} />
                         </Route>
                     </Route>
                 </Routes>
