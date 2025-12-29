@@ -16,7 +16,7 @@ function Header() {
 
     const navClass = ({ isActive }) =>
         `py-1 border-b-2 transition-colors duration-200
-   ${isActive ? "text-yellow-300 border-yellow-300" : "text-white/90 border-transparent hover:text-white hover:border-white"}`;
+    ${isActive ? "text-yellow-300 border-yellow-300" : "text-white/90 border-transparent hover:text-white hover:border-white"}`;
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-[#6155F5] shadow-lg transition-all duration-300">
@@ -25,7 +25,7 @@ function Header() {
                 <div className="flex-1 text-white font-bold text-xl tracking-tight">
                     {user ? (
                         <Link to={user.role === "admin" ? "/admin" : "/profile"} className="hover:opacity-80 transition flex items-center">
-                            {user.role === "admin" && <FaThLarge />}  Hallo, {user.name || user.nama}
+                            {user.role === "admin" && <FaThLarge className="mr-2" />} Hallo, {user.name || user.nama}
                         </Link>
                     ) : (
                         <Link to="/" className="hover:opacity-80 transition">
@@ -34,10 +34,9 @@ function Header() {
                     )}
                 </div>
 
-                {/* 2. TENGAH: Navbar Dinamis (Berubah jika Admin) */}
+                {/* 2. TENGAH: Navbar Dinamis */}
                 <nav className="flex-[2] flex justify-center">
                     <ul className="flex space-x-6 font-semibold text-white/90">
-                        {/* Menu Khusus Admin */}
                         {user && user.role === "admin" ? (
                             <>
                                 <li>
@@ -45,19 +44,16 @@ function Header() {
                                         Dashboard
                                     </NavLink>
                                 </li>
-
                                 <li>
                                     <NavLink to="/admin/gejala" className={navClass}>
                                         Gejala
                                     </NavLink>
                                 </li>
-
                                 <li>
                                     <NavLink to="/admin/penyakit" className={navClass}>
                                         Penyakit
                                     </NavLink>
                                 </li>
-
                                 <li>
                                     <NavLink to="/admin/rule" className={navClass}>
                                         Rule
@@ -70,7 +66,6 @@ function Header() {
                                 </li>
                             </>
                         ) : (
-                            /* Menu untuk User Biasa / Tamu */
                             <>
                                 <li>
                                     <NavLink to="/" className={navClass}>
@@ -83,7 +78,7 @@ function Header() {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/artikel//${art.slug}" className={navClass}>
+                                    <NavLink to="/artikel" className={navClass}>
                                         Article
                                     </NavLink>
                                 </li>
