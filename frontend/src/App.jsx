@@ -6,22 +6,24 @@ import "react-toastify/dist/ReactToastify.css";
 import HomePage from "./pages/public/HomePage";
 import LoginPage from "./pages/public/LoginPage";
 import RegisterPage from "./pages/public/RegisterPage";
-import Header from "./components/layout/Header";
 import AboutPage from "./pages/public/AboutPage";
 
 // admin page
 import AdminRoute from "./components/layout/AdminRoute";
 import Dashboard from "./pages/admin/Dashboard";
-import GejalaManagement from "./pages/admin/GejalaManagement";
-import PenyakitManagement from "./pages/admin/PenyakitManagement";
-import RuleManagement from "./pages/admin/RuleManagement";
 import DiagnosePage from "./pages/public/DiagnosePage";
 import ResultPage from "./pages/public/ResultPage";
 import AuthLayout from "./components/layout/AuthLayout";
 import MainLayout from "./components/layout/MainLayout";
 import ArticlesPage from "./pages/public/ArticlesPage";
-import AdminArticleForm from "./pages/admin/AdminArticleForm";
-import AdminArticleList from "./pages/admin/AdminArticleList";
+import ArticleForm from "./pages/admin/artikel/ArticleForm";
+import ArticleList from "./pages/admin/artikel/ArticleList";
+import RuleList from "./pages/admin/rule/RuleList";
+import RuleForm from "./pages/admin/rule/RuleForm";
+import GejalaList from "./pages/admin/gejala/GejalaList";
+import GejalaForm from "./pages/admin/gejala/GejalaForm";
+import PenyakitList from "./pages/admin/penyakit/PenyakitList";
+import PenyakitForm from "./pages/admin/penyakit/PenyakitForm";
 
 function App() {
     return (
@@ -46,12 +48,26 @@ function App() {
                         {/* ADMIN */}
                         <Route path="/admin" element={<AdminRoute />}>
                             <Route index element={<Dashboard />} />
-                            <Route path="gejala" element={<GejalaManagement />} />
-                            <Route path="penyakit" element={<PenyakitManagement />} />
-                            <Route path="rule" element={<RuleManagement />} />
-                            <Route path="/admin/artikel" element={<AdminArticleList />} />
-                            <Route path="/admin/artikel/create" element={<AdminArticleForm />} />
-                            <Route path="/admin/artikel/edit/:id" element={<AdminArticleForm />} />
+
+                            {/* gejala */}
+                            <Route path="/admin/gejala" element={<GejalaList />} />
+                            <Route path="/admin/gejala/create" element={<GejalaForm />} />
+                            <Route path="/admin/gejala/edit/:id" element={<GejalaForm />} />
+
+                            {/* penyakit */}
+                            <Route path="/admin/penyakit" element={<PenyakitList />} />
+                            <Route path="/admin/penyakit/create" element={<PenyakitForm />} />
+                            <Route path="/admin/penyakit/edit/:id" element={<PenyakitForm />} />
+
+                            {/* rules */}
+                            <Route path="/admin/rule" element={<RuleList />} />
+                            <Route path="/admin/rule/create" element={<RuleForm />} />
+                            <Route path="/admin/rule/edit/:id" element={<RuleForm />} />
+
+                            {/* article */}
+                            <Route path="/admin/artikel" element={<ArticleList />} />
+                            <Route path="/admin/artikel/create" element={<ArticleForm />} />
+                            <Route path="/admin/artikel/edit/:id" element={<ArticleForm />} />
                         </Route>
                     </Route>
                 </Routes>

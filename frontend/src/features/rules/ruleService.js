@@ -31,6 +31,14 @@ const getRules = async () => {
 };
 
 // =======================================================
+// GET All Rules ID
+// =======================================================
+const getRuleById = async (id) => {
+    const response = await axios.get(API_URL + id);
+    return response.data;
+};
+
+// =======================================================
 // UPDATE Rule
 // =======================================================
 const updateRule = async (ruleData) => {
@@ -52,6 +60,7 @@ const ruleService = {
     getRules,
     updateRule,
     deleteRule,
+    getRuleById
 };
 
 export default ruleService;

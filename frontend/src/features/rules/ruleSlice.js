@@ -3,6 +3,7 @@ import ruleService from "./ruleService";
 
 const initialState = {
     rules: [],
+    rule: null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -13,6 +14,15 @@ const initialState = {
 export const getRules = createAsyncThunk("rule/getAll", async (_, thunkAPI) => {
     try {
         return await ruleService.getRules();
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+export const getRuleById = createAsyncThunk("rule/getById", async (id, thunkAPI) => {
+    try {
+        return await ruleService.getRuleById(id);
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -70,6 +80,21 @@ export const ruleSlice = createSlice({
                 state.isError = true;
                 state.message = action.payload;
             })
+            // --- GET RULE BY ID ---
+            .addCase(getRuleById.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getRuleById.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.rule = action.payload;
+            })
+            .addCase(getRuleById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
+
             // --- CREATE RULE ---
             .addCase(createRule.fulfilled, (state, action) => {
                 state.isSuccess = true;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const AdminArticleList = () => {
+const ArticleList = () => {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -98,4 +98,4 @@ const AdminArticleList = () => {
     );
 };
 
-export default AdminArticleList;
+export default ArticleList;

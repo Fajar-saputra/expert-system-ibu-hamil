@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate  } from "react-router-dom";
 
 const ArticlesPage = () => {
     const [articles, setArticles] = useState([]);
     const [currentArticle, setCurrentArticle] = useState(null);
     const { slug } = useParams();
+    const navigate = useNavigate();
+
+    
 
     // 1. Fetch daftar judul untuk Sidebar Kiri
     useEffect(() => {
         const fetchArticles = async () => {
             const { data } = await axios.get("http://localhost:5000/api/articles");
             setArticles(data);
+
+            if (!slug && data.length > 0) {
+                const firstSlug = data[0].slug;
+                navigate(`/artikel/${firstSlug}`, { replace: true });
+            }
         };
+
         fetchArticles();
     }, []);
 

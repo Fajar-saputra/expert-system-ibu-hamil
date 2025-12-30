@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useParams, useNavigate } from "react-router-dom";
 
-const AdminArticleForm = () => {
+const ArticleForm = () => {
     const { id } = useParams(); // Ambil ID dari URL jika sedang mode edit
     const navigate = useNavigate(); // Untuk redirect
     const isEditMode = Boolean(id);
@@ -138,4 +138,4 @@ const AdminArticleForm = () => {
     );
 };
 
-export default AdminArticleForm;
+export default ArticleForm;
