@@ -82,10 +82,10 @@ const ArticleForm = () => {
     };
 
     return (
-        <div className="bg-white p-8 rounded shadow-md max-w-4xl mx-auto">
+        <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6 border-b pb-2">{isEditMode ? "Edit Artikel" : "Tambah Artikel Edukasi"}</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 bg-white rounded-2xl shadow-lg p-6 md:p-8">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Judul Artikel</label>
                     <input
