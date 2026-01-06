@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams, useNavigate  } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const ArticlesPage = () => {
     const [articles, setArticles] = useState([]);
     const [currentArticle, setCurrentArticle] = useState(null);
     const { slug } = useParams();
     const navigate = useNavigate();
-
-    
 
     // 1. Fetch daftar judul untuk Sidebar Kiri
     useEffect(() => {
@@ -74,7 +72,16 @@ const ArticlesPage = () => {
                             )}
 
                             {/* Isi Artikel (Gunakan prose agar otomatis rapi) */}
-                            <div className="prose prose-blue max-w-none text-gray-800 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: currentArticle.content }} />
+                            {/* <div className="prose prose-blue max-w-none text-gray-800 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: currentArticle.content }} /> */}
+                            <div
+                                className="
+                                            prose prose-blue max-w-none
+                                            prose-ul:list-disc prose-ol:list-decimal
+                                            prose-li:ml-6 prose-li:my-2 prose-li:leading-snug
+                                            text-gray-800
+                                            text-justify"
+                                dangerouslySetInnerHTML={{ __html: currentArticle.content }}
+                            />
                         </article>
                     ) : (
                         <div className="flex items-center justify-center h-64 text-gray-400">Pilih artikel di sebelah kiri untuk membaca informasi.</div>

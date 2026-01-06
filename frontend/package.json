@@ -14,6 +14,7 @@
     "@ckeditor/ckeditor5-react": "^11.0.1",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "autoprefixer": "^10.4.23",
     "axios": "^1.13.2",

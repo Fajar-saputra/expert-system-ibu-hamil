@@ -2,7 +2,7 @@
 
 
 @import "tailwindcss";
-/* @plugin "@tailwindcss/typography"; */
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-sans: "Roboto", ui-sans-serif, system-ui;
