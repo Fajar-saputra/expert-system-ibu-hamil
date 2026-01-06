@@ -57,6 +57,16 @@ export const deleteRule = createAsyncThunk("rule/delete", async (id, thunkAPI) =
     }
 });
 
+export const deleteAllRules = createAsyncThunk("rule/deleteAll", async (_, thunkAPI) => {
+    try {
+        await ruleService.deleteAllRules();
+        return true;
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
 // --- Rule Slice ---
 export const ruleSlice = createSlice({
     name: "rule",
@@ -122,6 +132,15 @@ export const ruleSlice = createSlice({
                 state.rules = state.rules.filter((rule) => rule._id !== action.payload);
             })
             .addCase(deleteRule.rejected, (state, action) => {
+                state.isError = true;
+                state.message = action.payload;
+            })
+            // --- DELETE ALL RULE ---
+            .addCase(deleteAllRules.fulfilled, (state) => {
+                state.isSuccess = true;
+                state.rules = [];
+            })
+            .addCase(deleteAllRules.rejected, (state, action) => {
                 state.isError = true;
                 state.message = action.payload;
             });

@@ -55,12 +55,27 @@ const deleteRule = async (id) => {
     return response.data;
 };
 
+const deleteAllRules = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`,
+        },
+    };
+
+    const response = await axios.delete("/api/rule", config);
+    return response.data;
+};
+
+
 const ruleService = {
     createRule,
     getRules,
     updateRule,
     deleteRule,
-    getRuleById
+    getRuleById,
+    deleteAllRules
 };
 
 export default ruleService;
